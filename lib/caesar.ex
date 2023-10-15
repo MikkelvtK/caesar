@@ -31,10 +31,6 @@ defmodule Caesar do
   defp _encrypt([], target, _key), do: Enum.reverse(target)
   defp _encrypt([h | t], target, key), do: _encrypt(t, [shift_char(h, key) | target], key)
 
-  def shift_char(char, shift) when char in @upper_range do
-    rem(char - ?A + shift, @alpha_num) + ?A
-  end
-
   @doc """
   Takes `char` and uses `shift` value to shift it n amounts, wrapping if
   reaching the end.
@@ -45,6 +41,10 @@ defmodule Caesar do
       ?b 
 
   """
+  def shift_char(char, shift) when char in @upper_range do
+    rem(char - ?A + shift, @alpha_num) + ?A
+  end
+
   @spec shift_char(char(), non_neg_integer()) :: char()
   def shift_char(char, shift) when char in @lower_range do
     rem(char - ?a + shift, @alpha_num) + ?a
