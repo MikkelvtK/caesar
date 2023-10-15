@@ -29,7 +29,10 @@ defmodule Caesar do
 
   defp _encrypt(input, target, key)
   defp _encrypt([], target, _key), do: Enum.reverse(target)
-  defp _encrypt([h | t], target, key), do: _encrypt(t, [shift_char(h, key) | target], key)
+
+  defp _encrypt([h | t], target, key) do
+    _encrypt(t, [shift_char(h, key) | target], key)
+  end
 
   @doc """
   Takes `char` and uses `shift` value to shift it n amounts, wrapping if
