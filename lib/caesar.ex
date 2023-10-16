@@ -25,13 +25,8 @@ defmodule Caesar do
 
   """
   @spec encrypt(charlist(), non_neg_integer()) :: charlist()
-  def encrypt(input, key), do: _encrypt(input, [], key)
-
-  defp _encrypt(input, target, key)
-  defp _encrypt([], target, _key), do: Enum.reverse(target)
-
-  defp _encrypt([h | t], target, key) do
-    _encrypt(t, [shift_char(h, key) | target], key)
+  def encrypt(input, key) do
+    input |> Enum.map(fn char -> shift_char(char, key) end)
   end
 
   @doc """
@@ -44,11 +39,11 @@ defmodule Caesar do
       ?b 
 
   """
+  @spec shift_char(char(), non_neg_integer()) :: char()
   def shift_char(char, shift) when char in @upper_range do
     rem(char - ?A + shift, @alpha_num) + ?A
   end
 
-  @spec shift_char(char(), non_neg_integer()) :: char()
   def shift_char(char, shift) when char in @lower_range do
     rem(char - ?a + shift, @alpha_num) + ?a
   end
